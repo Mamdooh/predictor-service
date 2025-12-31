@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic 8-Ball</title>
+    <link rel="stylesheet" href="{% static 'magic8ball/css/magic8ball.css' %}">
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="/">Magic 8-Ball</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="magic8ball-section">
+            <div class="container">
+                <h1 class="page-title">Magic 8-Ball</h1>
+                <p class="page-subtitle">Ask a yes/no question and receive your answer</p>
+
+                <div class="magic8ball-container">
+                    <div class="ball {% if answer %}ball-active{% endif %}">
+                        <div class="ball-inner">
+                            <div class="ball-window">
+                                {% if answer %}
+                                    <p class="answer-text">{{ answer }}</p>
+                                {% else %}
+                                    <p class="number-8">8</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-form-container">
+                        <form method="post" class="question-form">
+                            {% csrf_token %}
+                            <label for="question">Your Question:</label>
+                            <input
+                                type="text"
+                                id="question"
+                                name="question"
+                                placeholder="Will I have a good day tomorrow?"
+                                value="{% if question %}{{ question }}{% endif %}"
+                                required
+                                maxlength="200"
+                            >
+                            <button type="submit" class="submit-button">Ask the 8-Ball</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 msite. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
